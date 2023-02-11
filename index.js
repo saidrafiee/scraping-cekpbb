@@ -18,20 +18,33 @@ const bukaBrowser = async () => {
         const browser = await puppeteer.launch({ headless: false, devtools: false });
         const page = await browser.newPage();
         await page.goto("http://cekpbb.pekanbaru.go.id/");
-
-        for (let i = 172; i < allData.length; i++) {
+        const tahun = "2022"
+        for (let i = 0; i < allData.length; i++) {
 
             await page.type("#nop", allData[i].NOP);
             await page.click("#idCetakNop");
             await page.waitForSelector("#example > tbody:nth-child(3) > tr:nth-child(1) > td:nth-child(1)")
             await page.waitForTimeout(1000)
             let text = await page.$eval(
+                "#example > tbody:nth-child(3) > tr:nth-child(2) > td:nth-child(2)", (el) => el.innerText
+            );
+            let color = await page.$eval(
                 "#example > tbody:nth-child(3) > tr:nth-child(2) > td:nth-child(1)", (el) => window.getComputedStyle(el).color
             );
-            if (text === "rgb(255, 0, 0)") {
-                console.log(`belum bayar ${allData[i].NOP} ${allData[i].NAMA} `)
-            } else {
-                console.log(`sudah lunas ${allData[i].NOP} ${allData[i].NAMA} `)
+
+            if (text === tahun) {
+                if (color === "rgb(255, 0, 0)") {
+                    console.log(`${text} belum bayar ${allData[i].NOP} ${allData[i].NAMA}`)
+                }
+                else if (color === "rgb(255, 165, 0)") {
+                    console.log(`${text} //kurang bayar// ${allData[i].NOP} ${allData[i].NAMA}`)
+                }
+                else {
+                    console.log(`${text} **sudah lunas** ${allData[i].NOP} ${allData[i].NAMA}`)
+                }
+            }
+            else {
+                console.log(`ada kesalahan urutan, cek NOP ini: ${allData[i].NOP}, terdata tahun ${text}`)
             }
             await page.waitForSelector("#mdl > div > div > div.modal-header > button.close")
             await page.waitForTimeout(1500)
@@ -52,22 +65,6 @@ getData();
 // let nop = [{ id: "147110000400104420" }, { id: "147110000100700890" }]
 
 
-
-// #idModul > table > tbody > tr:nth-child(1) > th
-// #mdl > div > div
-// #mdl > div > div > div.modal-body
-// #idModul
-// #tdftrPel
-// #example
-// #example > tbody:nth-child(3) > tr:nth-child(1) > td:nth-child(1)
-
-// #mdl > div > div > div.modal-body > #idModul > #tdftrPel > #example > tbody:nth-child(3) > tr:nth-child(1) > td:nth-child(1)
-
-
-// await page.waitForTimeout(5000)
-
-
-//    console.log(color)
 
 
 
