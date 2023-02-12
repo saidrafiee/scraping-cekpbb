@@ -55,6 +55,9 @@ const bukaBrowser = async () => {
             await page.click("#nop", { clickCount: 2 })
             await page.waitForTimeout(500)
         }
+        console.log("///////////////////////////// SELESAAIII ///////////////////////////////////////////")
+        await browser.close()
+        
     } catch (error) {
         console.error(error);
     }

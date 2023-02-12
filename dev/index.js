@@ -61,6 +61,7 @@ const bukaBrowser = async () => {
 };
 
 getData();
+export default bukaBrowser
 
 
 // let nop = [{ id: "147110000400104420" }, { id: "147110000100700890" }]
