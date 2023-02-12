@@ -2,10 +2,10 @@ import puppeteer from 'puppeteer';
 import axios from "axios";
 
 let allData = [];
-
+const endpoint = "https://script.googleusercontent.com/macros/echo?user_content_key=RQSZVWNZx-PnQrt5ENHBzluaC05oUVBAuY-hS9fGYsoFtpBkmMEtBu7735hgPTPwDlrlQLSlp-JjYpUsY8-Pl7GPqRCTI1S6m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnIXplS_YFfgmnb_sA-1p_yRfriOi0IcjGOAnlqlg2R0PXndaZDK0V0b5WO_2ziebSqPYcFkb5zBCQpL4nPZwmvHTAcnfB5Qjhw&lib=MetJIrx7aaP-pJmnm-3BYzo6OPeMtZOF9"
 const getData = async () => {
     try {
-        const res = await axios.get("https://script.googleusercontent.com/macros/echo?user_content_key=RQSZVWNZx-PnQrt5ENHBzluaC05oUVBAuY-hS9fGYsoFtpBkmMEtBu7735hgPTPwDlrlQLSlp-JjYpUsY8-Pl7GPqRCTI1S6m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnIXplS_YFfgmnb_sA-1p_yRfriOi0IcjGOAnlqlg2R0PXndaZDK0V0b5WO_2ziebSqPYcFkb5zBCQpL4nPZwmvHTAcnfB5Qjhw&lib=MetJIrx7aaP-pJmnm-3BYzo6OPeMtZOF9");
+        const res = await axios.get(endpoint);
         allData = allData.concat(res.data.data);
         await bukaBrowser();
     } catch (error) {
@@ -18,7 +18,8 @@ const bukaBrowser = async () => {
         const browser = await puppeteer.launch({ headless: false, devtools: false });
         const page = await browser.newPage();
         await page.goto("http://cekpbb.pekanbaru.go.id/");
-        const tahun = "2022"
+
+        const tahun = "2022"  //PENGECEKEAN TAHU BERAPA, ATUR DISINI  <<<<<<<<<
         for (let i = 0; i < allData.length; i++) {
 
             await page.type("#nop", allData[i].NOP);
